@@ -12,7 +12,8 @@ class Fragment1 : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        println("onCreate")
+        println("onCreate==>${savedInstanceState?.isEmpty}")
+        savedStateRegistry
     }
 
     companion object {
@@ -39,11 +40,14 @@ class Fragment1 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("onViewCreated")
+        val boolean = arguments?.getBoolean("zxy")
+        println("onViewCreated==>${boolean}")
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putBoolean("zxy",true)
         println("onSaveInstanceState")
     }
 
@@ -67,11 +71,18 @@ class Fragment1 : Fragment() {
     override fun onStop() {
         super.onStop()
         println("onStop")
+        onSaveInstanceState(Bundle())
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         println("onDestroyView")
+
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        println("onViewStateRestored==>${savedInstanceState?.isEmpty}")
     }
 
     override fun onDestroy() {
@@ -79,8 +90,11 @@ class Fragment1 : Fragment() {
         println("onDestroy")
     }
 
+
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         println("hidden==>$hidden")
     }
+
+
 }
